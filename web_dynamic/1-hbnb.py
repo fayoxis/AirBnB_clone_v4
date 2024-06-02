@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""The 1-hbnb module
+"""
+Flask web application
 """
 from uuid import uuid4
 
@@ -11,7 +12,7 @@ app = Flask(__name__)
 
 @app.route('/1-hbnb', strict_slashes=False)
 def hbnb():
-    """Displays the HBNB main page
+    """this will displays the HBNB main page
     """
     states = storage.all('State').values()
     amenities = storage.all('Amenity').values()
@@ -26,5 +27,5 @@ def teardown_db(exception):
     storage.close()
 
 
-if __name__ == '__main__':
+while __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
