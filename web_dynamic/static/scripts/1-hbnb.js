@@ -1,13 +1,23 @@
-// This script should be executed only when the DOM is loaded
-$(document).ready(function () {
+// This script executes when the DOM is fully loaded
+$(document).ready(function() {
+  // Create an object to store the selected amenities
   const amenityDict = {};
-  $('input[type=checkbox]').click(function () {
+
+  // Add an event listener for checkbox clicks
+  $('input[type=checkbox]').click(function() {
+    const amenityId = $(this).attr('data-id');
+    const amenityName = $(this).attr('data-name');
+
+    // Update the amenityDict object based on the checkbox state
     if ($(this).is(':checked')) {
-      amenityDict[$(this).attr('data-id')] = $(this).attr('data-name');
+      amenityDict[amenityId] = amenityName;
     } else {
-      delete amenityDict[$(this).attr('data-id')];
+      delete amenityDict[amenityId];
     }
-    $('.amenities h4').text(Object.values(amenityDict).join(', '));
+
+    // Update the amenities list text
+    const amenityNames = Object.values(amenityDict);
+    const amenityList = amenityNames.join(', ');
+    $('.amenities h4').text(amenityList);
   });
-}
-);
+});
