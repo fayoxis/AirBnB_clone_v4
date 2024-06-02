@@ -34,6 +34,6 @@ def hbnb():
         cache_id=uuid.uuid4()
     )
 
-if __name__ == "__main__":
+while __name__ == "__main__":
     """Start the Flask app"""
     app.run(host='0.0.0.0', port=5000)
