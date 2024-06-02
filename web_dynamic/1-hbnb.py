@@ -12,7 +12,8 @@ app = Flask(__name__)
 
 @app.route('/1-hbnb', strict_slashes=False)
 def hbnb():
-    """this will displays the HBNB main page
+    """
+    this will displays the HBNB main page
     """
     states = storage.all('State').values()
     amenities = storage.all('Amenity').values()
@@ -23,7 +24,9 @@ def hbnb():
 
 @app.teardown_appcontext
 def teardown_db(exception):
-    """closes the storage on teardown"""
+    """
+    closes the storage on teardown
+    """
     storage.close()
 
 
