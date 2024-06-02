@@ -1,129 +1,146 @@
-const $ = window.jQuery;
-const apiURL = 'http://localhost:5001/api/v1';
+window.addEventListener('load', () => {
+  const api_status = document.getElementById('api_status');
+  const amenityIds = {};
+  const stateIds = {};
+  const cityIds = {};
 
-$(document).ready(() => {
-  const amenities = {};
-  const states = {};
-  const cities = {};
-
-  handleCheckboxes('.amen-checkbox', amenities, updateAmenities);
-  handleCheckboxes('.state-checkbox', states, updateLocations);
-  handleCheckboxes('.city-checkbox', cities, updateLocations);
-
-  $('button').click(() => {
-    const data = {
-      amenities: Object.keys(amenities),
-      states: Object.keys(states),
-      cities: Object.keys(cities)
-    };
-    $('.places').empty();
-    searchPlaces(data);
-  });
-
-  checkAPIStatus();
-  loadPlaces();
-});
-
-function handleCheckboxes(selector, storage, updateFunc) {
-  $(`input[type="checkbox"]${selector}`).click(function () {
-    $(this).each(function () {
-      const id = $(this).data('id');
-      const name = $(this).data('name');
-      this.checked ? (storage[id] = name) : delete storage[id];
-    });
-    updateFunc();
-  });
-}
-
-function updateAmenities() {
-  $('.amenities h4').html(Object.values(amenities).join(', ') || '&nbsp;');
-}
-
-function updateLocations() {
-  const locations = Object.values(states).concat(Object.values(cities));
-  $('.locations h4').html(locations.join(', ') || '&nbsp;');
-}
-
-function searchPlaces(data) {
-  $.ajax({
-    method: 'POST',
-    url: `${apiURL}/places_search/`,
-    data: JSON.stringify(data),
-    contentType: 'application/json; charset=utf-8'
-  })
-    .done(findPlaces)
-    .fail(() => $('.places').hide());
-}
-
-function checkAPIStatus() {
-  $.get(`${apiURL}/status/`)
-    .done(data => {
+  // Task 3
+  fetch('http://0.0.0.0:5001/api/v1/status')
+    .then(response => response.json())
+    .then(data => {
       if (data.status === 'OK') {
-        $('#api_status').addClass('available');
+        api_status.classList.add('available');
+      } else {
+        api_status.classList.remove('available');
       }
-    })
-    .fail(() => $('#api_status').removeClass('available'));
-}
+    });
 
-async function getReviews(placeId) {
-  const reviews = await $.get(`${apiURL}/places/${placeId}/reviews`);
-  return Promise.all(
-    reviews.map(async review => {
-      const user = await $.get(`${apiURL}/users/${review.user_id}`);
-      const formatDate = new Date(review.updated_at).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+  // Task 2
+  const amenityCheckboxes = document.querySelectorAll('.amenities input[type=checkbox]');
+  amenityCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('click', () => {
+      const id = checkbox.getAttribute('data-id');
+      const name = checkbox.getAttribute('data-name');
+      if (checkbox.checked) {
+        amenityIds[id] = name;
+      } else {
+        delete amenityIds[id];
+      }
+      const amenityNames = Object.values(amenityIds);
+      const amenityHeading = document.querySelector('div.amenities h4');
+      amenityHeading.textContent = amenityNames.length ? amenityNames.join(', ') : '\u00A0';
+    });
+  });
+
+  // Task 4
+  const filtersButton = document.querySelector('.filters button');
+  filtersButton.addEventListener('click', () => {
+    fetch('http://0.0.0.0:5001/api/v1/places_search/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        amenities: Object.keys(amenityIds),
+        states: Object.keys(stateIds),
+        cities: Object.keys(cityIds)
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      const placesSection = document.querySelector('section.places');
+      placesSection.innerHTML = '<h1>Places</h1>';
+      data.forEach(place => {
+        const articleElement = document.createElement('article');
+        articleElement.innerHTML = `
+          <div class="title">
+            <h2>${place.name}</h2>
+            <div class="price_by_night">$${place.price_by_night}</div>
+          </div>
+          <div class="information">
+            <div class="max_guest">
+              <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+              <br />
+              ${place.max_guest} Guests
+            </div>
+            <div class="number_rooms">
+              <i class="fa fa-bed fa-3x" aria-hidden="true"></i>
+              <br />
+              ${place.number_rooms} Bedrooms
+            </div>
+            <div class="number_bathrooms">
+              <i class="fa fa-bath fa-3x" aria-hidden="true"></i>
+              <br />
+              ${place.number_bathrooms} Bathroom
+            </div>
+          </div>
+          <div class="description">${place.description}</div>
+          <div class="reviews">
+            <h2>Reviews <span class="reviewSpan" data-id="${place.id}">show</span></h2>
+            <ul></ul>
+          </div>
+        `;
+        placesSection.appendChild(articleElement);
       });
-      return `
-        <li>
-          <h3>From ${user.first_name} ${user.last_name} on ${formatDate}</h3>
-          <p>${review.text}</p>
-        </li>
-      `;
-    })
-  ).then(reviewsHTML => reviewsHTML.join(''));
-}
 
-async function findPlaces(places) {
-  for (const place of places) {
-    const amenities = await $.get(`${apiURL}/places/${place.id}/amenities`);
-    const reviews = await getReviews(place.id);
-    const placeTemplate = `
-      <article>
-        <div class="title_box">
-          <h2>${place.name}</h2>
-          <div class="price_by_night">$${place.price_by_night}</div>
-        </div>
-        <div class="information">
-          <div class="max_guest">${place.max_guest} Guest${place.max_guest !== 1 ? 's' : ''}</div>
-          <div class="number_rooms">${place.number_rooms} Bedroom${place.number_rooms !== 1 ? 's' : ''}</div>
-          <div class="number_bathrooms">${place.number_bathrooms} Bathroom${place.number_bathrooms !== 1 ? 's' : ''}</div>
-        </div>
-        <div class="description">${place.description}</div>
-        <div class="amenities">
-          <h2>Amenities</h2>
-          <hr>
-          <ul>${amenities.map(amenity => `<li class="${amenity.name.toLowerCase().replace(' ', '_')}">${amenity.name}</li>`).join('')}</ul>
-        </div>
-        <div class="reviews">
-          <h2>${reviews.length} Review${reviews.length !== 1 ? 's' : ''}</h2>
-          <hr>
-          <ul>${reviews}</ul>
-        </div>
-      </article>
-    `;
-    $('.places').append(placeTemplate);
+      // Task 7
+      const reviewSpans = document.querySelectorAll('.reviewSpan');
+      reviewSpans.forEach(span => {
+        span.addEventListener('click', () => {
+          const placeId = span.getAttribute('data-id');
+          fetch(`http://0.0.0.0:5001/api/v1/places/${placeId}/reviews`)
+            .then(response => response.json())
+            .then(data => {
+              const reviewList = span.nextElementSibling;
+              reviewList.innerHTML = '';
+              if (span.textContent === 'show') {
+                data.forEach(review => {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = review.text;
+                  reviewList.appendChild(listItem);
+                });
+                span.textContent = 'hide';
+              } else {
+                span.textContent = 'show';
+              }
+            });
+        });
+      });
+    });
+  });
+
+  // Task 6
+  const stateCheckboxes = document.querySelectorAll('.stateCheckBox');
+  stateCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('click', () => {
+      const id = checkbox.getAttribute('data-id');
+      const name = checkbox.getAttribute('data-name');
+      if (checkbox.checked) {
+        stateIds[id] = name;
+      } else {
+        delete stateIds[id];
+      }
+      updateLocationsHeading();
+    });
+  });
+
+  const cityCheckboxes = document.querySelectorAll('.cityCheckBox');
+  cityCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('click', () => {
+      const id = checkbox.getAttribute('data-id');
+      const name = checkbox.getAttribute('data-name');
+      if (checkbox.checked) {
+        cityIds[id] = name;
+      } else {
+        delete cityIds[id];
+      }
+      updateLocationsHeading();
+    });
+  });
+
+  function updateLocationsHeading() {
+    const locationNames = [...Object.values(stateIds), ...Object.values(cityIds)];
+    const locationsHeading = document.querySelector('.locations h4');
+    locationsHeading.textContent = locationNames.length ? locationNames.join(', ') : '\u00A0';
   }
-}
-
-function loadPlaces() {
-  $.ajax({
-    method: 'POST',
-    url: `${apiURL}/places_search/`,
-    data: '{}',
-    contentType: 'application/json; charset=utf-8'
-  })
-    .done(findPlaces)
-    .fail(() => $('.places').hide());
-}
+});
