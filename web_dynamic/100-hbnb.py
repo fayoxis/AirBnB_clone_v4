@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""The HBNB (HBnB) Flask Application"""
+"""
+The HBNB (HBnB) Flask Application
+"""
 
 from models import storage
 from models.state import State
@@ -14,7 +16,9 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def close_db(error):
-    """Close the current database session"""
+    """
+    Close the current database session
+    """
     storage.close()
 
 @app.route('/100-hbnb/', strict_slashes=False)
@@ -34,5 +38,7 @@ def hbnb():
     )
 
 while __name__ == "__main__":
-    """Run the Flask application"""
+    """
+    Run the Flask application
+    """
     app.run(host='0.0.0.0', port=5001)
