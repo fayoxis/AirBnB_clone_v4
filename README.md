@@ -172,6 +172,9 @@ No known bugs at this time.
 - Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
 - Oyindamola Ibis - [Github](https://github.com/HBIbidunni)/ [Contact Me](mailto:ayodunibidunni@gmail.com)
 - Oluwaseyi Salami - [Github](https://github.com/Pinerealm)/ [Twitter](https://twitter.com/pinerealmz)
+- Arthur Tchaye - [Github](https://github.com/fayoxis) /[Twitter](https://twitter.com/Artieonn)
+- Sylvester Samuel -[Github](https://github.com/Sylvester009) / [Twitter](https://twitter.com/SamuelSylv9)
+
 
 Second part of Airbnb: Joann Vuong
 ## License
