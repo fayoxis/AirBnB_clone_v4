@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+"""The 2-hbnb module
+"""
+from uuid import uuid4
+
+from flask import Flask, render_template
+from models import storage
+
+app = Flask(__name__)
+
+
+@app.route('/2-hbnb', strict_slashes=False)
+def hbnb():
+    """Displays the HBNB main page
+    """
+    states = storage.all('State').values()
+    amenities = storage.all('Amenity').values()
+    places = storage.all('Place').values()
+    return render_template('2-hbnb.html', states=states, amenities=amenities,
+                           places=places, cache_id=uuid4())
+
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    """closes the storage on teardown"""
+    storage.close()
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port='5000')

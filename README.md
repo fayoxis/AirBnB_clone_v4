@@ -1,16 +1,16 @@
-# AirBnB Clone - The Console
-The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+# The AirBnB Clone - Web dynamic
+---------
 
-#### Functionalities of this command interpreter:
-* Create a new object (ex: a new User or a new Place)
-* Retrieve an object from a file, a database etc...
-* Do operations on objects (count, compute stats, etc...)
-* Update attributes of an object
-* Destroy an object
+![AirBnB Logo](https://www.lerevenu.com/sites/site/files/styles/img_lg/public/bf5268db3c56e7acf40210597d16fa56d62f5072_0.jpg?itok=uHFbl67r)
+
+__The AirBnB Clone - Web Dynamic__ aims to provide users with an engaging and interactive platform to search, 
+view, and book properties for their vacation stays. By leveraging modern web technologies 
+and frontend frameworks, this project enhances the user experience and offers real-time updates and visual feedback.
 
 ## Table of Content
 * [Environment](#environment)
 * [Installation](#installation)
+* [Features](#features)
 * [File Descriptions](#file-descriptions)
 * [Usage](#usage)
 * [Examples of use](#examples-of-use)
@@ -19,13 +19,27 @@ The console is the first segment of the AirBnB project at Holberton School that 
 * [License](#license)
 
 ## Environment
-This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.4.3)
+This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.4.3).
+To run the __AirBnB Clone - Web dynamic__, you need the following software installed on your system:
+
+* Python 3.x
+* Flasgger
+* JQuery
+* SQLAlchemy
+* SQLite (for local development)
 
 ## Installation
 * Clone this repository: `git clone "https://github.com/alexaorrico/AirBnB_clone.git"`
 * Access AirBnb directory: `cd AirBnB_clone`
 * Run hbnb(interactively): `./console` and enter command
 * Run hbnb(non-interactively): `echo "<command>" | ./console.py`
+
+## Features
+* Dynamic property search with live filtering.
+* Interactive property maps and location-based searches.
+* Real-time booking availability and instant confirmation.
+* User-friendly interfaces for property owners and renters.
+* Responsive design for seamless mobile and desktop experiences.
 
 ## File Descriptions
 [console.py](console.py) - the console contains the entry point of the command interpreter. 
@@ -154,10 +168,10 @@ EOF  all  create  destroy  help  quit  show  update
 No known bugs at this time. 
 
 ## Authors
-Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
-Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)  
-Jhoan Zamora - [Github](https://github.com/jzamora5) / [Twitter](https://twitter.com/JhoanZamora10)  
-David Ovalle - [Github](https://github.com/Nukemenonai) / [Twitter](https://twitter.com/disartDave)
+- Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
+- Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
+- Oyindamola Ibis - [Github](https://github.com/HBIbidunni)/ [Contact Me](mailto:ayodunibidunni@gmail.com)
+- Oluwaseyi Salami - [Github](https://github.com/Pinerealm)/ [Twitter](https://twitter.com/pinerealmz)
 
 Second part of Airbnb: Joann Vuong
 ## License
