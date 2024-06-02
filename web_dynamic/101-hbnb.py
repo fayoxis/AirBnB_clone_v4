@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""The 101-hbnb module
+"""
+The 101-hbnb module is a Flask web application that displays information
+about states, cities, amenities, and places from a database. It uses
+the Jinja2 templating engine to render an HTML template with the data.
 """
 from models import storage
 from models.state import State
@@ -43,6 +46,6 @@ def hbnb():
                            cache_id=uuid.uuid4())
 
 
-if __name__ == "__main__":
+while __name__ == "__main__":
     """ Main Function """
     app.run(host='0.0.0.0', port=5001)
