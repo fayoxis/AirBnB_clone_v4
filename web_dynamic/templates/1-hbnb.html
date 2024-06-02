@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -22,26 +22,27 @@
           <h3>States</h3>
           <h4>&nbsp;</h4>
           <ul class="popover">
-          {% for state in states|sort(attribute='name') %}
-            <li><h2>{{ state.name }}:</h2>
-            {% for city in state.cities|sort(attribute='name') %}
+            {% for state in states|sort(attribute='name') %}
+            <li>
+              <h2>{{ state.name }}:</h2>
+              {% for city in state.cities|sort(attribute='name') %}
               <ul>
                 <li>{{ city.name }}</li>
               </ul>
-            {% endfor %}
+              {% endfor %}
             </li>
-          {% endfor %}
+            {% endfor %}
           </ul>
         </div>
         <div class="amenities">
           <h3>Amenities</h3>
           <h4>&nbsp;</h4>
           <ul class="popover">
-          {% for amenity in amenities|sort(attribute='name') %}
-            <li><input type="checkbox"
-                       data-id="{{ amenity.id }}"
-                       data-name="{{ amenity.name }}">{{ amenity.name }}</li>
-          {% endfor %}
+            {% for amenity in amenities|sort(attribute='name') %}
+            <li>
+              <input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}">{{ amenity.name }}
+            </li>
+            {% endfor %}
           </ul>
         </div>
         <button>Search</button>
@@ -49,7 +50,7 @@
       <section class="places">
         <h1>Places</h1>
         <article>
-        {% for place in places|sort(attribute='name') %}
+          {% for place in places|sort(attribute='name') %}
           <h2>{{ place.name }}</h2>
           <div class="price_by_night">${{ place.price_by_night }}</div>
           <div class="information">
@@ -59,7 +60,7 @@
           </div>
           <div class="user"><strong>Owner: </strong>{{ place.user.first_name }} {{ place.user.last_name }}</div>
           <div class="description">{{ place.description|safe }}</div>
-        {% endfor %}
+          {% endfor %}
         </article>
       </section>
     </div>
