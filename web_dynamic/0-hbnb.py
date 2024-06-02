@@ -12,7 +12,8 @@ app = Flask(__name__)
 
 @app.route('/0-hbnb', strict_slashes=False)
 def hbnb():
-    """will displays the HBNB main page
+    """
+    will displays the HBNB main page
     """
     states = storage.all('State').values()
     amenities = storage.all('Amenity').values()
