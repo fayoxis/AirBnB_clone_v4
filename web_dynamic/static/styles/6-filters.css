@@ -51,18 +51,6 @@ button:hover {
     width: 25%;
 }
 
-.popover {
-    visibility: hidden;
-    width: 100%;
-    border: 1px solid #DDDDDD;
-    border-radius: 4px;
-    background: #FAFAFA;
-    padding-bottom: 15px;
-    height: 300px;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    max-height: 300px;
-}
 
 .popover::-webkit-scrollbar{
     width: 0px;
@@ -111,6 +99,7 @@ button:hover {
 .locations:hover .popover {
     visibility: visible;
 }
+
 .filters {
     background-color: white;
     height: 70px;
