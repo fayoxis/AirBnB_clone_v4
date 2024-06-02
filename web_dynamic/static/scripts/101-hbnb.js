@@ -3,8 +3,7 @@ window.addEventListener('load', () => {
   const amenityIds = {};
   const stateIds = {};
   const cityIds = {};
-
-  // Task 3
+  
   fetch('http://0.0.0.0:5001/api/v1/status')
     .then(response => response.json())
     .then(data => {
@@ -15,7 +14,7 @@ window.addEventListener('load', () => {
       }
     });
 
-  // Task 2
+ 
   const amenityCheckboxes = document.querySelectorAll('.amenities input[type=checkbox]');
   amenityCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('click', () => {
@@ -32,7 +31,7 @@ window.addEventListener('load', () => {
     });
   });
 
-  // Task 4
+
   const filtersButton = document.querySelector('.filters button');
   filtersButton.addEventListener('click', () => {
     fetch('http://0.0.0.0:5001/api/v1/places_search/', {
@@ -83,7 +82,7 @@ window.addEventListener('load', () => {
         placesSection.appendChild(articleElement);
       });
 
-      // Task 7
+      
       const reviewSpans = document.querySelectorAll('.reviewSpan');
       reviewSpans.forEach(span => {
         span.addEventListener('click', () => {
@@ -109,7 +108,7 @@ window.addEventListener('load', () => {
     });
   });
 
-  // Task 6
+
   const stateCheckboxes = document.querySelectorAll('.stateCheckBox');
   stateCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('click', () => {
