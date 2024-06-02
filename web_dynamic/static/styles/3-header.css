@@ -1,20 +1,27 @@
+/* header */
 header {
-    background: white url(../images/logo.png) no-repeat 20px center;
+    background: white;
+    background-image: url("../images/logo.png");
+    background-repeat: no-repeat;
+    background-position: 20px 50%;
     height: 70px;
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
 }
 
+/* Api Div */
 #api_status {
-    position: absolute;
-    right: 30px;
-    top: 15px;
-    width: 40px;
-    height: 40px;
+    float: right;
+    background-color: #cccccc;
+    border: 1px;
     border-radius: 50%;
-    background-color: #CCCCCC;
+    height: 40px;
+    width: 40px;
+    margin-top: 15px;
+    margin-right: 30px;
 }
 
+/* Background colour */
 .available {
-    background-color: #FF545F !important;
+	background-color: #ff545f !important;
 }
