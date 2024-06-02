@@ -1,29 +1,28 @@
-// This script should be executed only when the DOM is loaded
+// This script updates the amenity list and the API status
 $(function () {
   const amenityDict = {};
   $('input[type=checkbox]').click(function () {
+    const amenityId = $(this).attr('data-id');
+    const amenityName = $(this).attr('data-name');
     if ($(this).is(':checked')) {
-      amenityDict[$(this).attr('data-id')] = $(this).attr('data-name');
+      amenityDict[amenityId] = amenityName;
     } else {
-      delete amenityDict[$(this).attr('data-id')];
+      delete amenityDict[amenityId];
     }
-    $('.amenities h4').text(Object.values(amenityDict).join(', '));
+    const amenityList = Object.values(amenityDict).join(', ');
+    $('.amenities h4').text(amenityList);
   });
 });
 
-// Request the url http://0.0.0.0:5001/api/v1/status/:
-// If the status is “OK”, add the class available to the DIV#api_status
-// Otherwise, remove the class available to the DIV#api_status
+// Request the url http://0.0.0.0:5001/api/v1/status/
 $(function() {
-  url = 'http://0.0.0.0:5001/api/v1/status/';
+  const url = 'http://0.0.0.0:5001/api/v1/status/';
   $.getJSON(url, function (data) {
+    const $apiStatus = $('div#api_status');
     if (data.status === 'OK') {
-      $('div#api_status').addClass('available');
-    };
-    if (data.status !== 'OK') {
-      if ($('div#api_status').hasClass('available')) {
-        $('div#api_status').removeClass('available');
-      }
-    };
+      $apiStatus.addClass('available');
+    } else {
+      $apiStatus.removeClass('available');
+    }
   });
 });
