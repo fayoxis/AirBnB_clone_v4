@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""  this is The 0-hbnb module
+"""
+Flask web application
 """
 from uuid import uuid4
 
