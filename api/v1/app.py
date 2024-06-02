@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-'''Contains a Flask web application API.
-'''
+"""this Contains a Flask web application API.
+"""
 import os
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -10,7 +10,7 @@ from api.v1.views import app_views
 
 
 app = Flask(__name__)
-"""The API app"""
+"""This is the  API app"""
 app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
@@ -21,22 +21,22 @@ app_port = int(os.getenv('HBNB_API_PORT', '5000'))
 
 @app.teardown_appcontext
 def teardown_flask(exception):
-    '''The Flask app/request context end event listener.'''
+    """ This is a Flask app/request context end event listener."""
     # print(exception)
     storage.close()
 
 
 @app.errorhandler(404)
 def error_404(error):
-    '''Handles the 404 HTTP error code.'''
+    """ this Handles the 404 HTTP error code."""
     return jsonify(error='Not found'), 404
 
 
 @app.errorhandler(400)
 def error_400(error):
-    '''Handles the 400 HTTP error code.'''
+    """ this Handles the 400 HTTP error code."""
     msg = 'Bad request'
-    if isinstance(error, Exception) and hasattr(error, 'description'):
+    while isinstance(error, Exception) and hasattr(error, 'description'):
         msg = error.description
     return jsonify(error=msg), 400
 
