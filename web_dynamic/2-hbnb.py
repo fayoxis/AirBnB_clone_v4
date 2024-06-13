@@ -17,7 +17,7 @@ def close_db(error):
     """Close the current SQLAlchemy Session"""
     storage.close()
 
-@app.route('/2-hbnb', strict_slashes=False)
+@app.route('/airbnb-onepage', strict_slashes=False)
 def hbnb():
     """Render the HBNB template"""
     states = sorted(storage.all(State).values(), key=lambda state: state.name)
